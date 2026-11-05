@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الأجهزة · LEVEL UP</title>
+<link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+<link rel="stylesheet" href="../css/bootstrap.rtl.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/theme.js"></script>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ================= السايدبار (هيتنقل لـ _Layout) ================= -->
+  <nav class="sidebar" aria-label="القائمة الرئيسية">
+    <div class="brand">
+      <div class="logo"><img src="../images/logo.svg" alt="" width="24" height="24"></div>
+      <div><b>LEVEL UP</b><small>إدارة البلايستيشن</small></div>
+    </div>
+
+    <div class="nav-links">
+      <div class="nav-group">
+        <div class="nav-sec">اللوحات</div>
+        <a class="item" href="../Dashboard/Single.html" asp-controller="Dashboard" asp-action="Single">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="lbl">لوحة السنجل</span>
+        </a>
+        <a class="item" href="../Dashboard/Multi.html" asp-controller="Dashboard" asp-action="Multi">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="lbl">لوحة الملتي</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-sec">التشغيل</div>
+        <a class="item on" href="../Device/Index.html" aria-current="page" asp-controller="Device" asp-action="Index">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          <span class="lbl">الأجهزة</span>
+          <span class="cnt">5 شغال</span>
+        </a>
+        <a class="item" href="../Session/Index.html" asp-controller="Session" asp-action="Index">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg>
+          <span class="lbl">الجلسات المنتهية</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-sec">الإعدادات</div>
+        <a class="item" href="../Drink/Index.html" asp-controller="Drink" asp-action="Index">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg>
+          <span class="lbl">المشروبات</span>
+        </a>
+        <a class="item" href="../Room/Index.html" asp-controller="Room" asp-action="Index">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          <span class="lbl">الغرف</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="nav-foot">
+      <div class="who">
+        <span class="av">a</span>
+        <div><b>admin</b>مدير النظام</div>
+      </div>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="تفعيل الوضع الفاتح" title="تفعيل الوضع الفاتح">
+        <span class="theme-icon when-dark"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>
+        <span class="lbl when-dark">الوضع الفاتح</span>
+        <span class="theme-icon when-light"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></span>
+        <span class="lbl when-light">الوضع الداكن</span>
+      </button>
+      <form method="post" action="../Account/Login.html" asp-controller="Account" asp-action="Logout">
+        <button type="submit" class="btn sm ghost-red" title="تسجيل الخروج">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+          <span class="lbl">تسجيل الخروج</span>
+        </button>
+      </form>
+    </div>
+  </nav>
+  <!-- ================= نهاية السايدبار ================= -->
+
+  <main class="main">
+
+    <div class="head">
+      <div>
+        <h1>الأجهزة</h1>
+        <p class="sub">اختار سنجل أو ملتي والمشروبات ودوس بدء. تقدر تحوّل النمط أو تضيف مشروبات والجهاز شغال.</p>
+      </div>
+      <div class="chips">
+        <span class="pill p-blue">سنجل 40 ج.م/ساعة</span>
+        <span class="pill p-purple">ملتي 60 ج.م/ساعة</span>
+        <!-- بيظهر بس لو فيه غرف مستنية الحساب -->
+        <span class="pill p-amber">مستني الحساب 1</span>
+      </div>
+    </div>
+
+    <!-- الفلترة في السيرفر: ?filter=All|Running|Idle|Single|Multi، والتاب المختار عليه on -->
+    <nav class="tabs" aria-label="فلترة الأجهزة">
+      <a class="tab on t-all" href="Index.html" aria-current="page" asp-controller="Device" asp-action="Index" asp-route-filter="All">الكل <span class="n">10</span></a>
+      <a class="tab" href="Index.html?filter=Running" asp-controller="Device" asp-action="Index" asp-route-filter="Running">شغال <span class="n">6</span></a>
+      <a class="tab" href="Index.html?filter=Idle" asp-controller="Device" asp-action="Index" asp-route-filter="Idle">فاضي <span class="n">4</span></a>
+      <a class="tab" href="Index.html?filter=Single" asp-controller="Device" asp-action="Index" asp-route-filter="Single">سنجل <span class="n">3</span></a>
+      <a class="tab" href="Index.html?filter=Multi" asp-controller="Device" asp-action="Index" asp-route-filter="Multi">ملتي <span class="n">3</span></a>
+    </nav>
+
+    <!-- لو مفيش غرف مفعّلة:
+    <div class="panel empty">مفيش غرف مفعّلة. ضيف غرفة من <a href="../Room/Index.html" asp-controller="Room" asp-action="Index">صفحة الغرف</a>.</div>
+         لو الفلتر مفيهوش أجهزة:
+    <div class="panel empty">مفيش أجهزة في القسم ده دلوقتي</div> -->
+
+    <div class="cards">
+
+      <!-- ===== غرفة 1 · شغال سنجل ===== -->
+      <article class="device-card running" data-elapsed="4332" data-segment-elapsed="4332" data-base-cost="0" data-rate="40">
+        <div class="card-head">
+          <h2>غرفة 1</h2>
+          <div class="tags"><span class="pill p-blue">سنجل</span><span class="pill p-green">شغال</span></div>
+        </div>
+        <div class="timerbox">
+          <div class="timer">01:12:12</div>
+          <div class="c">سعر اللعب: <b data-cost>49 ج.م</b> · سنجل 40 ج.م/ساعة</div>
+        </div>
+        <div class="dl">
+          <div class="dl-title">المشروبات</div>
+          <div class="dl-row">
+            <span>بيبسي × 1</span>
+            <span class="dl-meta">
+              <span class="muted">15 ج.م</span>
+              <form method="post" action="Index.html" asp-controller="Device" asp-action="RemoveDrink">
+                <input type="hidden" name="RoomId" value="1"><input type="hidden" name="DrinkId" value="1">
+                <button type="submit" class="x" aria-label="شيل بيبسي">×</button>
+              </form>
+            </span>
+          </div>
+        </div>
+        <form class="add" method="post" action="Index.html" asp-controller="Device" asp-action="AddDrink">
+          <input type="hidden" name="RoomId" value="1">
+          <select class="in" name="DrinkId" aria-label="اختيار مشروب لغرفة 1">
+            <option value="1">بيبسي — 15 ج.م</option>
+            <option value="2">شاي — 10 ج.م</option>
+            <option value="3">نسكافيه — 20 ج.م</option>
+            <option value="4">مياه — 10 ج.م</option>
+            <option value="5">ريد بول — 40 ج.م</option>
+          </select>
+          <button type="submit" class="btn ghost sm">إضافة</button>
+        </form>
+        <div class="two">
+          <form method="post" action="Index.html" asp-controller="Device" asp-action="SwitchMode">
+            <input type="hidden" name="RoomId" value="1"><input type="hidden" name="Mode" value="Multi">
+            <button type="submit" class="btn ghost-purple" title="الوقت اللي فات بيتحسب بسعره، والجاي بسعر ملتي">تحويل لملتي</button>
+          </form>
+          <form class="stop" method="post" action="Index.html" asp-controller="Device" asp-action="Stop">
+            <input type="hidden" name="RoomId" value="1">
+            <button type="submit" class="btn red stop-btn">إيقاف</button>
+          </form>
+        </div>
+      </article>
+
+      <!-- ===== غرفة 2 · فاضي (النمط الافتراضي سنجل) ===== -->
+      <article class="device-card idle">
+        <div class="card-head">
+          <h2>غرفة 2</h2>
+          <div class="tags"><span class="pill p-gray">فاضي</span></div>
+        </div>
+        <div class="modepick">
+          <label for="Mode-2">هيلعب إيه؟</label>
+          <select class="in" id="Mode-2" name="Mode" form="start-2">
+            <option value="Single" data-label="سنجل" data-rate="40" selected>سنجل — 40 ج.م/ساعة</option>
+            <option value="Multi" data-label="ملتي" data-rate="60">ملتي — 60 ج.م/ساعة</option>
+          </select>
+        </div>
+        <div class="timerbox">
+          <div class="timer">00:00:00</div>
+          <div class="c">سعر اللعب: <b>0 ج.م</b> · <span data-mode-rate>سنجل 40 ج.م/ساعة</span></div>
+        </div>
+        <div class="dl">
+          <div class="dl-title">المشروبات (قبل البدء)</div>
+          <span class="dl-empty">مفيش مشروبات لسه</span>
+        </div>
+        <form class="add" method="post" action="Index.html" asp-controller="Device" asp-action="AddDrink">
+          <input type="hidden" name="RoomId" value="2">
+          <select class="in" name="DrinkId" aria-label="اختيار مشروب لغرفة 2">
+            <option value="1">بيبسي — 15 ج.م</option>
+            <option value="2">شاي — 10 ج.م</option>
+            <option value="3">نسكافيه — 20 ج.م</option>
+            <option value="4">مياه — 10 ج.م</option>
+            <option value="5">ريد بول — 40 ج.م</option>
+          </select>
+          <button type="submit" class="btn ghost sm">إضافة</button>
+        </form>
+        <form id="start-2" method="post" action="Index.html" asp-controller="Device" asp-action="Start">
+          <input type="hidden" name="RoomId" value="2">
+          <button type="submit" class="btn green big" data-start-label>بدء سنجل</button>
+        </form>
+      </article>
+
+      <!-- ===== غرفة 3 · شغال سنجل ===== -->
+      <article class="device-card running" data-elapsed="1536" data-segment-elapsed="1536" data-base-cost="0" data-rate="40">
+        <div class="card-head">
+          <h2>غرفة 3</h2>
+          <div class="tags"><span class="pill p-blue">سنجل</span><span class="pill p-green">شغال</span></div>
+        </div>
+        <div class="timerbox">
+          <div class="timer">00:25:36</div>
+          <div class="c">سعر اللعب: <b data-cost>17 ج.م</b> · سنجل 40 ج.م/ساعة</div>
+        </div>
+        <div class="dl">
+          <div class="dl-title">المشروبات</div>
+          <span class="dl-empty">مفيش مشروبات لسه</span>
+        </div>
+        <form class="add" method="post" action="Index.html" asp-controller="Device" asp-action="AddDrink">
+          <input type="hidden" name="RoomId" value="3">
+          <select class="in" name="DrinkId" aria-label="اختيار مشروب لغرفة 3">
+            <option value="1">بيبسي — 15 ج.م</option>
+            <option value="2">شاي — 10 ج.م</option>
+            <option value="3">نسكافيه — 20 ج.م</option>
+            <option value="4">مياه — 10 ج.م</option>
+            <option value="5">ريد بول — 40 ج.م</option>
+          </select>
+          <button type="submit" class="btn ghost sm">إضافة</button>
+        </form>
+        <div class="two">
+          <form method="post" action="Index.html" asp-controller="Device" asp-action="SwitchMode">
+            <input type="hidden" name="RoomId" value="3"><input type="hidden" name="Mode" value="Multi">
+            <button type="submit" class="btn ghost-purple" title="الوقت اللي فات بيتحسب بسعره، والجاي بسعر ملتي">تحويل لملتي</button>
+          </form>
+          <form class="stop" method="post" action="Index.html" asp-controller="Device" asp-action="Stop">
+            <input type="hidden" name="RoomId" value="3">
+            <button type="submit" class="btn red stop-btn">إيقاف</button>
+          </form>
+        </div>
+      </article>
+
+      <!-- ===== غرفة 4 · في انتظار الحساب ===== -->
+      <article class="device-card bill" data-elapsed="5400" data-stopped="true">
+        <div class="card-head">
+          <h2>غرفة 4</h2>
+          <div class="tags"><span class="pill p-blue">سنجل</span><span class="pill p-amber">في انتظار الحساب</span></div>
+        </div>
+        <div class="timerbox">
+          <div class="timer">01:30:00</div>
+          <div class="c">سعر اللعب: <b>60 ج.م</b> · سنجل 40 ج.م/ساعة</div>
+        </div>
+        <div class="billbox">
+          <div class="bill-title">حساب الجلسة · من 2:40 م لـ 4:10 م</div>
+          <!-- سطر لكل جزء. لو الجلسة متحولة بييجي بعد الأجزاء:
+          <div class="r muted"><span>إجمالي اللعب</span><span>93 ج.م</span></div> -->
+          <div class="r"><span>سنجل 1:30 × 40 ج.م/ساعة</span><span>60 ج.م</span></div>
+          <div class="r"><span>نسكافيه × 1 (20 ج.م)</span><span>20 ج.م</span></div>
+          <div class="r muted"><span>إجمالي المشروبات</span><span>20 ج.م</span></div>
+          <div class="tot"><span>الإجمالي</span><b>80 ج.م</b></div>
+        </div>
+        <div class="two">
+          <form method="post" action="Index.html" asp-controller="Device" asp-action="Resume">
+            <input type="hidden" name="RoomId" value="4">
+            <button type="submit" class="btn ghost-gray">رجوع للعب</button>
+          </form>
+          <form class="wide" method="post" action="Index.html" asp-controller="Device" asp-action="Close">
+            <input type="hidden" name="RoomId" value="4">
+            <button type="submit" class="btn">تم التحصيل · إنهاء الجلسة</button>
+          </form>
+        </div>
+      </article>
+
+      <!-- ===== غرفة 5 · شغال ملتي ومتحول (بدأت سنجل) ===== -->
+      <article class="device-card running" data-elapsed="7500" data-segment-elapsed="1800" data-base-cost="63" data-rate="60">
+        <div class="card-head">
+          <h2>غرفة 5</h2>
+          <div class="tags"><span class="pill p-purple">ملتي</span><span class="pill p-green">شغال</span></div>
+        </div>
+        <div class="timerbox">
+          <div class="timer">02:05:00</div>
+          <div class="c">سعر اللعب: <b data-cost>93 ج.م</b> · ملتي 60 ج.م/ساعة</div>
+          <div class="segs">
+            <span>سنجل 1:35</span><span class="arrow">←</span><span>ملتي <span data-segment-live>0:30</span> (دلوقتي)</span>
+          </div>
+        </div>
+        <div class="dl">
+          <div class="dl-title">المشروبات</div>
+          <div class="dl-row">
+            <span>شاي × 2</span>
+            <span class="dl-meta">
+              <span class="muted">20 ج.م</span>
+              <form method="post" action="Index.html" asp-controller="Device" asp-action="RemoveDrink">
+                <input type="hidden" name="RoomId" value="5"><input type="hidden" name="DrinkId" value="2">
+                <button type="submit" class="x" aria-label="شيل شاي">×</button>
+              </form>
+            </span>
+          </div>
+        </div>
+        <form class="add" method="post" action="Index.html" asp-controller="Device" asp-action="AddDrink">
+          <input type="hidden" name="RoomId" value="5">
+          <select class="in" name="DrinkId" aria-label="اختيار مشروب لغرفة 5">
+            <option value="1">بيبسي — 15 ج.م</option>
+            <option value="2">شاي — 10 ج.م</option>
+            <option value="3">نسكافيه — 20 ج.م</option>
+            <option value="4">مياه — 10 ج.م</option>
+            <option value="5">ريد بول — 40 ج.م</option>
+          </select>
+          <button type="submit" class="btn ghost sm">إضافة</button>
+        </form>
+        <div class="two">
+          <form method="post" action="Index.html" asp-controller="Device" asp-action="SwitchMode">
+            <input type="hidden" name="RoomId" value="5"><input type="hidden" name="Mode" value="Single">
+            <button type="submit" class="btn ghost-blue" title="الوقت اللي فات بيتحسب بسعره، والجاي بسعر سنجل">تحويل لسنجل</button>
+          </form>
+          <form class="stop" method="post" action="Index.html" asp-controller="Device" asp-action="Stop">
+            <input type="hidden" name="RoomId" value="5">
+            <button type="submit" class="btn red stop-btn">إيقاف</button>
+          </form>
+        </div>
+      </article>
+
+      <!-- ===== غرفة 6 · فاضي (النمط الافتراضي سنجل) ===== -->
+      <article class="device-card idle">
+        <div class="card-head">
+          <h2>غرفة 6</h2>
+          <div class="tags"><span class="pill p-gray">فاضي</span></div>
+        </div>
+        <div class="modepick">
+          <label for="Mode-6">هيلعب إيه؟</label>
+          <select class="in" id="Mode-6" name="Mode" form="start-6">
+            <option value="Single" data-label="سنجل" data-rate="40" selected>سنجل — 40 ج.م/ساعة</option>
+            <option value="Multi" data-label="ملتي" data-rate="60">ملتي — 60 ج.م/ساعة</option>
+          </select>
+        </div>
+        <div class="timerbox">
+          <div class="timer">00:00:00</div>
+          <div class="c">سعر اللعب: <b>0 ج.م</b> · <span data-mode-rate>سنجل 40 ج.م/ساعة</span></div>
+        </div>
+        <div class="dl">
+          <div class="dl-title">المشروبات (قبل البدء)</div>
+          <span class="dl-empty">مفيش مشروبات لسه</span>
+        </div>
+        <form class="add" method="post" action="Index.html" asp-controller="Device" asp-action="AddDrink">
+          <input type="hidden" name="RoomId" value="6">
+          <select class="in" name="DrinkId" aria-label="اختيار مشروب لغرفة 6">
+            <option value="1">بيبسي — 15 ج.م</option>
+            <option value="2">شاي — 10 ج.م</option>
+            <option value="3">نسكافيه — 20 ج.م</option>
+            <option value="4">مياه — 10 ج.م</option>
+            <option value="5">ريد بول — 40 ج.م</option>
+          </select>
+          <button type="submit" class="btn ghost sm">إضافة</button>
+        </form>
+        <form id="start-6" method="post" action="Index.html" asp-controller="Device" asp-action="Start">
+          <input type="hidden" name="RoomId" value="6">
+          <button type="submit" class="btn green big" data-start-label>بدء سنجل</button>
+        </form>
+      </article>
+
+      <!-- ===== غرفة 7 · شغال ملتي ===== -->
+      <article class="device-card running" data-elapsed="2424" data-segment-elapsed="2424" data-base-cost="0" data-rate="60">
+        <div class="card-head">
+          <h2>غرفة 7</h2>
+          <div class="tags"><span class="pill p-purple">ملتي</span><span class="pill p-green">شغال</span></div>
+        </div>
+        <div class="timerbox">
+          <div class="timer">00:40:24</div>
+          <div class="c">سعر اللعب: <b data-cost>41 ج.م</b> · ملتي 60 ج.م/ساعة</div>
+        </div>
+        <div class="dl">
+          <div class="dl-title">المشروبات</div>
+          <div class="dl-row">
+            <span>بيبسي × 2</span>
+            <span class="dl-meta">
+              <span class="muted">30 ج.م</span>
+              <form method="post" action="Index.html" asp-controller="Device" asp-action="RemoveDrink">
+                <input type="hidden" name="RoomId" value="7"><input type="hidden" name="DrinkId" value="1">
+                <button type="submit" class="x" aria-label="شيل بيبسي">×</button>
+              </form>
+            </span>
+          </div>
+        </div>
+        <form class="add" method="post" action="Index.html" asp-controller="Device" asp-action="AddDrink">
+          <input type="hidden" name="RoomId" value="7">
+          <select class="in" name="DrinkId" aria-label="اختيار مشروب لغرفة 7">
+            <option value="1">بيبسي — 15 ج.م</option>
+            <option value="2">شاي — 10 ج.م</option>
+            <option value="3">نسكافيه — 20 ج.م</option>
+            <option value="4">مياه — 10 ج.م</option>
+            <option value="5">ريد بول — 40 ج.م</option>
+          </select>
+          <button type="submit" class="btn ghost sm">إضافة</button>
+        </form>
+        <div class="two">
+          <form method="post" action="Index.html" asp-controller="Device" asp-action="SwitchMode">
+            <input type="hidden" name="RoomId" value="7"><input type="hidden" name="Mode" value="Single">
+            <button type="submit" class="btn ghost-blue" title="الوقت اللي فات بيتحسب بسعره، والجاي بسعر سنجل">تحويل لسنجل</button>
+          </form>
+          <form class="stop" method="post" action="Index.html" asp-controller="Device" asp-action="Stop">
+            <input type="hidden" name="RoomId" value="7">
+            <button type="submit" class="btn red stop-btn">إيقاف</button>
+          </form>
+        </div>
+      </article>
+
+      <!-- ===== غرفة 8 · فاضي (النمط الافتراضي ملتي) ===== -->
+      <article class="device-card idle">
+        <div class="card-head">
+          <h2>غرفة 8</h2>
+          <div class="tags"><span class="pill p-gray">فاضي</span></div>
+        </div>
+        <div class="modepick">
+          <label for="Mode-8">هيلعب إيه؟</label>
+          <select class="in" id="Mode-8" name="Mode" form="start-8">
+            <option value="Single" data-label="سنجل" data-rate="40">سنجل — 40 ج.م/ساعة</option>
+            <option value="Multi" data-label="ملتي" data-rate="60" selected>ملتي — 60 ج.م/ساعة</option>
+          </select>
+        </div>
+        <div class="timerbox">
+          <div class="timer">00:00:00</div>
+          <div class="c">سعر اللعب: <b>0 ج.م</b> · <span data-mode-rate>ملتي 60 ج.م/ساعة</span></div>
+        </div>
+        <div class="dl">
+          <div class="dl-title">المشروبات (قبل البدء)</div>
+          <span class="dl-empty">مفيش مشروبات لسه</span>
+        </div>
+        <form class="add" method="post" action="Index.html" asp-controller="Device" asp-action="AddDrink">
+          <input type="hidden" name="RoomId" value="8">
+          <select class="in" name="DrinkId" aria-label="اختيار مشروب لغرفة 8">
+            <option value="1">بيبسي — 15 ج.م</option>
+            <option value="2">شاي — 10 ج.م</option>
+            <option value="3">نسكافيه — 20 ج.م</option>
+            <option value="4">مياه — 10 ج.م</option>
+            <option value="5">ريد بول — 40 ج.م</option>
+          </select>
+          <button type="submit" class="btn ghost sm">إضافة</button>
+        </form>
+        <form id="start-8" method="post" action="Index.html" asp-controller="Device" asp-action="Start">
+          <input type="hidden" name="RoomId" value="8">
+          <button type="submit" class="btn green big" data-start-label>بدء ملتي</button>
+        </form>
+      </article>
+
+      <!-- ===== غرفة 9 · شغال ملتي ===== -->
+      <article class="device-card running" data-elapsed="6606" data-segment-elapsed="6606" data-base-cost="0" data-rate="60">
+        <div class="card-head">
+          <h2>غرفة 9</h2>
+          <div class="tags"><span class="pill p-purple">ملتي</span><span class="pill p-green">شغال</span></div>
+        </div>
+        <div class="timerbox">
+          <div class="timer">01:50:06</div>
+          <div class="c">سعر اللعب: <b data-cost>111 ج.م</b> · ملتي 60 ج.م/ساعة</div>
+        </div>
+        <div class="dl">
+          <div class="dl-title">المشروبات</div>
+          <span class="dl-empty">مفيش مشروبات لسه</span>
+        </div>
+        <form class="add" method="post" action="Index.html" asp-controller="Device" asp-action="AddDrink">
+          <input type="hidden" name="RoomId" value="9">
+          <select class="in" name="DrinkId" aria-label="اختيار مشروب لغرفة 9">
+            <option value="1">بيبسي — 15 ج.م</option>
+            <option value="2">شاي — 10 ج.م</option>
+            <option value="3">نسكافيه — 20 ج.م</option>
+            <option value="4">مياه — 10 ج.م</option>
+            <option value="5">ريد بول — 40 ج.م</option>
+          </select>
+          <button type="submit" class="btn ghost sm">إضافة</button>
+        </form>
+        <div class="two">
+          <form method="post" action="Index.html" asp-controller="Device" asp-action="SwitchMode">
+            <input type="hidden" name="RoomId" value="9"><input type="hidden" name="Mode" value="Single">
+            <button type="submit" class="btn ghost-blue" title="الوقت اللي فات بيتحسب بسعره، والجاي بسعر سنجل">تحويل لسنجل</button>
+          </form>
+          <form class="stop" method="post" action="Index.html" asp-controller="Device" asp-action="Stop">
+            <input type="hidden" name="RoomId" value="9">
+            <button type="submit" class="btn red stop-btn">إيقاف</button>
+          </form>
+        </div>
+      </article>
+
+      <!-- ===== غرفة 10 · فاضي (النمط الافتراضي ملتي) ===== -->
+      <article class="device-card idle">
+        <div class="card-head">
+          <h2>غرفة 10</h2>
+          <div class="tags"><span class="pill p-gray">فاضي</span></div>
+        </div>
+        <div class="modepick">
+          <label for="Mode-10">هيلعب إيه؟</label>
+          <select class="in" id="Mode-10" name="Mode" form="start-10">
+            <option value="Single" data-label="سنجل" data-rate="40">سنجل — 40 ج.م/ساعة</option>
+            <option value="Multi" data-label="ملتي" data-rate="60" selected>ملتي — 60 ج.م/ساعة</option>
+          </select>
+        </div>
+        <div class="timerbox">
+          <div class="timer">00:00:00</div>
+          <div class="c">سعر اللعب: <b>0 ج.م</b> · <span data-mode-rate>ملتي 60 ج.م/ساعة</span></div>
+        </div>
+        <div class="dl">
+          <div class="dl-title">المشروبات (قبل البدء)</div>
+          <span class="dl-empty">مفيش مشروبات لسه</span>
+        </div>
+        <form class="add" method="post" action="Index.html" asp-controller="Device" asp-action="AddDrink">
+          <input type="hidden" name="RoomId" value="10">
+          <select class="in" name="DrinkId" aria-label="اختيار مشروب لغرفة 10">
+            <option value="1">بيبسي — 15 ج.م</option>
+            <option value="2">شاي — 10 ج.م</option>
+            <option value="3">نسكافيه — 20 ج.م</option>
+            <option value="4">مياه — 10 ج.م</option>
+            <option value="5">ريد بول — 40 ج.م</option>
+          </select>
+          <button type="submit" class="btn ghost sm">إضافة</button>
+        </form>
+        <form id="start-10" method="post" action="Index.html" asp-controller="Device" asp-action="Start">
+          <input type="hidden" name="RoomId" value="10">
+          <button type="submit" class="btn green big" data-start-label>بدء ملتي</button>
+        </form>
+      </article>
+
+    </div>
+
+  </main>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.validate.min.js"></script>
+<script src="../js/jquery.validate.unobtrusive.min.js"></script>
+<script src="../js/bootstrap.bundle.min.js"></script>
+<script src="../js/timer.js"></script>
+</body>
+</html>

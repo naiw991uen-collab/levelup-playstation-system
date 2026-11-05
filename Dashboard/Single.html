@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لوحة السنجل · LEVEL UP</title>
+<link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+<link rel="stylesheet" href="../css/bootstrap.rtl.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/theme.js"></script>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ================= السايدبار (هيتنقل لـ _Layout) ================= -->
+  <nav class="sidebar" aria-label="القائمة الرئيسية">
+    <div class="brand">
+      <div class="logo"><img src="../images/logo.svg" alt="" width="24" height="24"></div>
+      <div><b>LEVEL UP</b><small>إدارة البلايستيشن</small></div>
+    </div>
+
+    <div class="nav-links">
+      <div class="nav-group">
+        <div class="nav-sec">اللوحات</div>
+        <a class="item on" href="../Dashboard/Single.html" asp-controller="Dashboard" asp-action="Single" aria-current="page">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="lbl">لوحة السنجل</span>
+        </a>
+        <a class="item" href="../Dashboard/Multi.html" asp-controller="Dashboard" asp-action="Multi">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="lbl">لوحة الملتي</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-sec">التشغيل</div>
+        <a class="item" href="../Device/Index.html" asp-controller="Device" asp-action="Index">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          <span class="lbl">الأجهزة</span>
+          <span class="cnt">5 شغال</span>
+        </a>
+        <a class="item" href="../Session/Index.html" asp-controller="Session" asp-action="Index">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg>
+          <span class="lbl">الجلسات المنتهية</span>
+        </a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-sec">الإعدادات</div>
+        <a class="item" href="../Drink/Index.html" asp-controller="Drink" asp-action="Index">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg>
+          <span class="lbl">المشروبات</span>
+        </a>
+        <a class="item" href="../Room/Index.html" asp-controller="Room" asp-action="Index">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          <span class="lbl">الغرف</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="nav-foot">
+      <div class="who">
+        <span class="av">a</span>
+        <div><b>admin</b>مدير النظام</div>
+      </div>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="تفعيل الوضع الفاتح" title="تفعيل الوضع الفاتح">
+        <span class="theme-icon when-dark"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>
+        <span class="lbl when-dark">الوضع الفاتح</span>
+        <span class="theme-icon when-light"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></span>
+        <span class="lbl when-light">الوضع الداكن</span>
+      </button>
+      <form method="post" action="../Account/Login.html" asp-controller="Account" asp-action="Logout">
+        <button type="submit" class="btn sm ghost-red" title="تسجيل الخروج">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+          <span class="lbl">تسجيل الخروج</span>
+        </button>
+      </form>
+    </div>
+  </nav>
+  <!-- ================= نهاية السايدبار ================= -->
+
+  <main class="main">
+
+    <div class="head">
+      <div>
+        <h1>لوحة السنجل</h1>
+        <p class="sub">يوم العمل: الخميس 5 نوفمبر 2026 · من 6 الصبح</p>
+      </div>
+
+      <form class="panel form-line rate-form" method="post" action="Single.html"
+            asp-controller="Dashboard" asp-action="UpdateRate" autocomplete="off" novalidate>
+        <input type="hidden" name="Mode" value="Single">
+        <div class="field">
+          <label for="HourlyRate">سعر ساعة السنجل (ج.م)</label>
+          <input class="in" id="HourlyRate" name="HourlyRate" type="number" min="1" step="1" value="40"
+                 data-val="true" data-val-required="اكتب سعر الساعة"
+                 data-val-range="السعر لازم يكون أكبر من صفر" data-val-range-min="1" data-val-range-max="100000">
+        </div>
+        <button class="btn" type="submit">حفظ السعر</button>
+        <div class="msg-line">
+          <span class="field-validation-valid msg err" data-valmsg-for="HourlyRate" data-valmsg-replace="true" asp-validation-for="HourlyRate"></span>
+          <!-- بعد الحفظ: <span class="msg ok" role="status">اتحفظ: 45 ج.م للساعة · بيتطبق على الجلسات الجديدة</span> -->
+          <span class="msg dim">السعر الجديد بيتطبق على الجلسات أو التحويلات اللي هتحصل بعد الحفظ</span>
+        </div>
+      </form>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi">
+        <div class="kpi-top">
+          <span class="l">دخل السنجل النهارده</span>
+          <span class="ic blue"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20M16 15h2"/></svg></span>
+        </div>
+        <span class="v">689 <small>ج.م</small></span>
+        <span class="n">لعب 539 · مشروبات 150</span>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top">
+          <span class="l">ساعات السنجل</span>
+          <span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        </div>
+        <span class="v">13:27 <small>ساعة</small></span>
+        <span class="n">سعر الساعة الحالي 40 ج.م</span>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top">
+          <span class="l">جلسات السنجل</span>
+          <span class="ic amber"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span>
+        </div>
+        <span class="v">8 <small>جلسة</small></span>
+        <span class="n">5 منتهية · 2 شغالة · 1 مستنية الحساب</span>
+      </div>
+      <div class="kpi live">
+        <div class="kpi-top">
+          <span class="l">شغالين سنجل دلوقتي</span>
+          <span class="ic green"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+        </div>
+        <span class="v">2 <small>من 10 غرفة</small></span>
+        <a href="../Device/Index.html?filter=Single" asp-controller="Device" asp-action="Index" asp-route-filter="Single">افتح صفحة الأجهزة</a>
+      </div>
+    </div>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>تفاصيل الغرف النهارده (وقت السنجل بس)</h2>
+        <span class="muted">المشروبات بتتحسب على النمط اللي الجلسة بدأت بيه</span>
+      </div>
+      <div class="scroll">
+        <table class="t">
+          <thead>
+            <tr>
+              <th>الغرفة</th>
+              <th>الحالة دلوقتي</th>
+              <th>ساعات اللعب</th>
+              <th>دخل اللعب</th>
+              <th>المشروبات اللي اتطلبت</th>
+              <th>دخل المشروبات</th>
+              <th>الإجمالي</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="b">غرفة 1</td>
+              <td><span class="pill xs p-green">شغالة</span> <span class="pill xs p-blue">سنجل</span></td>
+              <td>3:27</td>
+              <td>139 ج.م</td>
+              <td class="soft">بيبسي ×2، مياه ×1</td>
+              <td>40 ج.م</td>
+              <td class="b">179 ج.م</td>
+            </tr>
+            <tr>
+              <td class="b">غرفة 2</td>
+              <td><span class="pill xs p-gray">فاضية</span></td>
+              <td>1:00</td>
+              <td>40 ج.م</td>
+              <td class="soft">بيبسي ×2</td>
+              <td>30 ج.م</td>
+              <td class="b">70 ج.م</td>
+            </tr>
+            <tr>
+              <td class="b">غرفة 3</td>
+              <td><span class="pill xs p-green">شغالة</span> <span class="pill xs p-blue">سنجل</span></td>
+              <td>0:25</td>
+              <td>17 ج.م</td>
+              <td class="dim">—</td>
+              <td>0 ج.م</td>
+              <td class="b">17 ج.م</td>
+            </tr>
+            <tr>
+              <td class="b">غرفة 4</td>
+              <td><span class="pill xs p-amber">حساب</span></td>
+              <td>3:00</td>
+              <td>120 ج.م</td>
+              <td class="soft">نسكافيه ×2</td>
+              <td>40 ج.م</td>
+              <td class="b">160 ج.م</td>
+            </tr>
+            <tr>
+              <td class="b">غرفة 5</td>
+              <td><span class="pill xs p-green">شغالة</span> <span class="pill xs p-purple">ملتي</span></td>
+              <td>4:35</td>
+              <td>183 ج.م</td>
+              <td class="soft">شاي ×4</td>
+              <td>40 ج.م</td>
+              <td class="b">223 ج.م</td>
+            </tr>
+            <tr>
+              <td class="b">غرفة 6</td>
+              <td><span class="pill xs p-gray">فاضية</span></td>
+              <td>0:00</td>
+              <td>0 ج.م</td>
+              <td class="dim">—</td>
+              <td>0 ج.م</td>
+              <td class="b">0 ج.م</td>
+            </tr>
+            <tr>
+              <td class="b">غرفة 7</td>
+              <td><span class="pill xs p-green">شغالة</span> <span class="pill xs p-purple">ملتي</span></td>
+              <td>0:00</td>
+              <td>0 ج.م</td>
+              <td class="dim">—</td>
+              <td>0 ج.م</td>
+              <td class="b">0 ج.م</td>
+            </tr>
+            <tr>
+              <td class="b">غرفة 8</td>
+              <td><span class="pill xs p-gray">فاضية</span></td>
+              <td>1:00</td>
+              <td>40 ج.م</td>
+              <td class="dim">—</td>
+              <td>0 ج.م</td>
+              <td class="b">40 ج.م</td>
+            </tr>
+            <tr>
+              <td class="b">غرفة 9</td>
+              <td><span class="pill xs p-green">شغالة</span> <span class="pill xs p-purple">ملتي</span></td>
+              <td>0:00</td>
+              <td>0 ج.م</td>
+              <td class="dim">—</td>
+              <td>0 ج.م</td>
+              <td class="b">0 ج.م</td>
+            </tr>
+            <tr>
+              <td class="b">غرفة 10</td>
+              <td><span class="pill xs p-gray">فاضية</span></td>
+              <td>0:00</td>
+              <td>0 ج.م</td>
+              <td class="dim">—</td>
+              <td>0 ج.م</td>
+              <td class="b">0 ج.م</td>
+            </tr>
+            <tr class="off">
+              <td class="b">غرفة 11</td>
+              <td><span class="pill xs p-red">معطلة</span></td>
+              <td>0:00</td>
+              <td>0 ج.م</td>
+              <td class="dim">—</td>
+              <td>0 ج.م</td>
+              <td class="b">0 ج.م</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>الإجمالي</td>
+              <td></td>
+              <td>13:27</td>
+              <td>539 ج.م</td>
+              <td></td>
+              <td>150 ج.م</td>
+              <td class="tot-blue">689 ج.م</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.validate.min.js"></script>
+<script src="../js/jquery.validate.unobtrusive.min.js"></script>
+<script src="../js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
