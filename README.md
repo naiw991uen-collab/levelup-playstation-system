@@ -1,157 +1,130 @@
-# LEVEL UP · الفرونت اند الثابت لسيستم محل البلايستيشن
+<div align="center">
 
-صفحات HTML ثابتة (عربي، RTL) لسيستم إدارة محل بلايستيشن: غرف بتلعب سنجل أو ملتي بسعر بالساعة، ومشروبات على الجلسة،
-وحساب في الآخر. الصفحات هتتحول لـ Views في **ASP.NET Core MVC (.NET 9)**.
+<img src="images/favicon.svg" width="72" alt="LEVEL UP logo">
 
-- المرجع للشكل والنصوص: الماكيت اللي العميل وافق عليه (`PlayStation-Demo-Pro.html`).
-- Bootstrap 5 RTL + `css/style.css` (الـ tokens والثيم الداكن والفاتح منقولين من الماكيت).
-- الخطوط: IBM Plex Sans Arabic للنص، و Readex Pro للعناوين والأرقام.
-- البيانات اللي في الصفحات تجريبية وثابتة، ومتسقة مع بعضها في كل الصفحات.
-  "دلوقتي" في البيانات هو الخميس 5 نوفمبر 2026 الساعة 4:20 م، ويوم العمل بيبدأ 6 الصبح.
+# LEVEL UP — PlayStation Lounge Management System
 
-## شجرة الملفات
+**A fully Arabic (RTL) management system for PlayStation gaming lounges: live session timers, single/multiplayer billing, drink orders and daily revenue dashboards.**
+
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap_5.3_RTL-7952B3?logo=bootstrap&logoColor=white)
+![JavaScript](https://img.shields.io/badge/Vanilla_JS-F7DF1E?logo=javascript&logoColor=black)
+![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core_MVC-.NET_9-512BD4?logo=dotnet&logoColor=white)
+![Status](https://img.shields.io/badge/status-frontend_complete-success)
+
+</div>
+
+---
+
+## Overview
+
+LEVEL UP is a management system built for a real PlayStation lounge. The cashier runs every room from one screen: picks single or multiplayer, starts a live timer, adds drinks to the bill, switches modes mid-session, and gets an itemized bill when the session stops. The owner sees each mode's revenue, playing hours and room breakdown for the business day.
+
+This repository contains the **complete frontend**: eight responsive, right-to-left Arabic pages built from a client-approved mockup. The markup already uses ASP.NET Core MVC Tag Helpers (`asp-controller`, `asp-action`, `asp-route-*`, `asp-validation-for`), so it is ready to become Razor views. The **backend (ASP.NET Core MVC, .NET 9)** is in progress.
+
+## Screenshots
+
+| Devices board | Single-mode dashboard |
+|---|---|
+| ![Devices](docs/screenshots/devices.png) | ![Dashboard](docs/screenshots/dashboard.png) |
+
+| Finished sessions | Light theme |
+|---|---|
+| ![Sessions](docs/screenshots/sessions.png) | ![Light theme](docs/screenshots/light-theme.png) |
+
+## Features
+
+### Devices board
+- One card per room with a **live timer** and a **play cost that updates every minute**.
+- Start a session as **Single** or **Multi**, each with its own hourly rate.
+- **Switch modes mid-session**: time already played is billed at its own rate and the rest at the new rate (e.g. *Single 1:35 → Multi 0:30*).
+- Add or remove drinks before or during a session.
+- **Stop** shows an itemized bill (each play segment, each drink, totals), with **Resume** and **Paid · Close session**.
+- Filter tabs: All · Running · Idle · Single · Multi.
+
+### Dashboards (Single & Multi)
+- Today's revenue, playing hours, sessions and devices running now.
+- **Editable hourly rate**: the new rate applies only to new sessions, never to past ones.
+- Per-room breakdown for the day: hours, play revenue, drinks ordered, drinks revenue and totals.
+
+### Finished sessions
+- Daily log with filters by **business day**, **mode** (including switched sessions) and **room**.
+- Start and end time, duration, play cost with a per-segment breakdown, drinks and grand totals.
+
+### Drinks & rooms
+- Add drinks, edit prices inline and mark a drink as **out of stock** instead of deleting it.
+- Add and rename rooms, set each room's **default mode**, and **disable** rooms. A room with an active session can't be disabled.
+
+### Across the app
+- Login page, **dark and light themes** that persist with no flash on load, responsive layout down to phone size.
+- Fully **Arabic and right-to-left**, typeset in IBM Plex Sans Arabic and Readex Pro.
+
+## Business rules
+
+| Rule | Detail |
+|---|---|
+| Per-minute billing | Each started minute is billed: `round(ceil(seconds / 60) × hourlyRate / 60)` |
+| Rate snapshot | Every session segment stores the rate in effect when it started |
+| Split billing | A mode switch closes the current segment and opens a new one |
+| Business day | Starts at 6:00 AM, so late-night sessions count toward the right day |
+| Drinks attribution | Drinks count toward the mode the session started in |
+| No hard deletes | Drinks become unavailable and rooms are disabled, so past bills stay intact |
+
+## Technical highlights
+
+- **No JavaScript needed for actions.** Every action is a plain HTML form (POST, or GET for filters), so the server stays the single source of truth.
+- **Only two small scripts:**
+  - `theme.js` applies the saved theme in `<head>` before first paint.
+  - `timer.js` drives the live timers from a server-rendered `data-elapsed` value, so a wrong client clock can't skew the time. It also updates the idle card's labels when the mode changes.
+- **Server-side filtering and inline editing.** Filter tabs are `asp-route-filter` links, and inline edit rows use an `editId` route value.
+- **A design-token system.** Colors, shadows and radii are CSS custom properties with full dark and light palettes, layered on Bootstrap 5.3 RTL.
+- **Validation messages in Arabic** through jQuery Validation Unobtrusive (`data-val-*`), matching what ASP.NET Core generates.
+
+## Project structure
 
 ```
-PlayStationFrontend/
-├── index.html                  (بتودّي على Account/Login.html)
-├── README.md
+├── index.html                 # Redirects to the login page
 ├── Account/Login.html
-├── Dashboard/Single.html       (لوحة السنجل + فورم تعديل سعر الساعة)
-├── Dashboard/Multi.html        (لوحة الملتي + فورم تعديل سعر الساعة)
-├── Device/Index.html           (التابات + كروت كل الغرف)
-├── Session/Index.html          (الجلسات المنتهية + الفلاتر)
-├── Drink/Index.html            (فورم إضافة مشروب + الجدول)
-├── Room/Index.html             (فورم إضافة غرفة + الجدول)
-├── css/bootstrap.rtl.min.css
-├── css/style.css
-├── js/bootstrap.bundle.min.js
-├── js/jquery.min.js
-├── js/jquery.validate.min.js
-├── js/jquery.validate.unobtrusive.min.js
-├── js/theme.js
-├── js/timer.js
-├── images/logo.svg
-└── images/favicon.svg
+├── Dashboard/
+│   ├── Single.html            # Single-mode dashboard + hourly rate
+│   └── Multi.html             # Multi-mode dashboard + hourly rate
+├── Device/Index.html          # Live devices board (filter tabs + room cards)
+├── Session/Index.html         # Finished sessions log + filters
+├── Drink/Index.html           # Drinks management
+├── Room/Index.html            # Rooms management
+├── css/
+│   ├── bootstrap.rtl.min.css
+│   └── style.css              # Design tokens, components, themes
+├── js/
+│   ├── theme.js
+│   ├── timer.js
+│   └── jquery*, bootstrap*    # Vendor libraries
+└── images/                    # Logo and favicon
 ```
 
-## إزاي تفتح الصفحات
+The folders mirror the planned MVC controllers: `Account`, `Dashboard`, `Device`, `Session`, `Drink` and `Room`.
 
-افتح `index.html` في المتصفح مباشرة (دبل كليك)، ومش محتاج سيرفر. هيوديك على صفحة الدخول.
-كل اللينكات والفورمز ليها `href` أو `action` نسبي، فتقدر تتنقل بين الصفحات وهي ثابتة.
-الفورمز `post` بترجع لنفس الصفحة أو للصفحة اللي بعدها، والـ Login بيودّي على لوحة السنجل.
+## Getting started
 
-الخطوط بتتحمل من Google Fonts. من غير إنترنت الصفحات بتشتغل عادي، بس بخط النظام.
+No build step and no server needed. Clone the repository and open `index.html` in any modern browser:
 
-> **وقت التسطيب عند العميل:** الخطين (IBM Plex Sans Arabic و Readex Pro) لازم يتنزلوا جوه `wwwroot/fonts`
-> ويتعرّفوا بـ `@font-face` في `style.css` بدل الـ `@import` بتاع Google Fonts، عشان الجهاز ممكن يبقى من غير نت.
+```bash
+git clone https://github.com/naiw991uen-collab/levelup-playstation-system.git
+```
 
-## الصفحات والفورمز
+The pages contain consistent sample data. Action buttons submit forms that will be handled by the backend.
 
-كل الفورمز `method="post"` إلا فلتر الجلسات (`get`). الحقول مكتوبة بنفس أسماء الـ Properties المتوقعة في الـ ViewModel.
-قيم النمط في كل مكان `Single` و `Multi`.
+## Roadmap
 
-| الصفحة | Controller / Action (GET) | الفورم ← Action | الحقول (`name`) |
-|---|---|---|---|
-| `index.html` | `Home/Index` (Redirect لـ `Dashboard/Single`، والـ Authorization بتودّي اللي مش عامل دخول على `Account/Login`) | — | — |
-| `Account/Login.html` | `Account/Login` | دخول ← `Account/Login` | `UserName`, `Password`, `RememberMe` |
-| السايدبار (كل الصفحات) | — | خروج ← `Account/Logout` | — |
-| `Dashboard/Single.html` | `Dashboard/Single` | سعر الساعة ← `Dashboard/UpdateRate` | `Mode` (hidden = `Single`), `HourlyRate` |
-| `Dashboard/Multi.html` | `Dashboard/Multi` | سعر الساعة ← `Dashboard/UpdateRate` | `Mode` (hidden = `Multi`), `HourlyRate` |
-| `Device/Index.html` | `Device/Index?filter=All\|Running\|Idle\|Single\|Multi` | بدء ← `Device/Start` | `RoomId`, `Mode` (الـ select مربوط بالفورم بـ `form="start-{id}"`) |
-| | | إضافة مشروب ← `Device/AddDrink` | `RoomId`, `DrinkId` |
-| | | شيل مشروب ← `Device/RemoveDrink` | `RoomId`, `DrinkId` |
-| | | تحويل ← `Device/SwitchMode` | `RoomId`, `Mode` (النمط الجديد) |
-| | | إيقاف ← `Device/Stop` | `RoomId` |
-| | | رجوع للعب ← `Device/Resume` | `RoomId` |
-| | | تم التحصيل · إنهاء الجلسة ← `Device/Close` | `RoomId` |
-| `Session/Index.html` | `Session/Index` | الفلتر (GET) ← `Session/Index` | `Date` (yyyy-MM-dd، يوم العمل)، `Mode` (`All\|Single\|Multi\|Mixed`)، `RoomId` (فاضي = كل الغرف) |
-| `Drink/Index.html` | `Drink/Index?editId={id}` | إضافة ← `Drink/Add` | `Name`, `Price` |
-| | | حفظ السعر (صف التعديل) ← `Drink/UpdatePrice` | `Id`, `Price` |
-| | | مش موجود حالياً / رجّعه متوفر ← `Drink/ToggleAvailable` | `Id` |
-| `Room/Index.html` | `Room/Index?editId={id}` | إضافة ← `Room/Add` | `Name`, `DefaultMode` |
-| | | حفظ الاسم (صف التعديل) ← `Room/UpdateName` | `Id`, `Name` |
-| | | حفظ النمط الافتراضي (في كل صف) ← `Room/UpdateDefaultMode` | `Id`, `DefaultMode` |
-| | | تعطيل / تفعيل الغرفة ← `Room/ToggleActive` | `Id` |
+- [x] Client-approved mockup
+- [x] Static frontend: all pages, responsive, RTL, dark and light themes
+- [ ] ASP.NET Core MVC backend (.NET 9): Razor views, controllers and services
+- [ ] Entity Framework Core with SQLite (rooms, sessions, segments, drinks, settings)
+- [ ] ASP.NET Core Identity authentication
+- [ ] Offline on-premise deployment as a self-contained Windows service, with daily database backups
+- [ ] Printable receipts and monthly reports
 
-ملاحظات للـ ViewModels:
-- مفيش حذف في أي مكان. المشروب بيبقى "مش موجود حالياً"، والغرفة بتتعطل. مينفعش تعطّل غرفة فيها جلسة شغالة أو مستنية الحساب،
-  والزرار بيبقى `disabled` وجنبه "فيها جلسة شغالة".
-- الجلسة بتتكون من أجزاء (Segments)، وكل جزء ليه نمط وسعر ساعة ووقت بداية ونهاية. التحويل بيقفل الجزء الحالي ويبدأ جزء جديد.
-  سعر اللعب بيتحسب لكل جزء بالدقيقة (تقريب لفوق): `round(ceil(ثواني / 60) × سعر الساعة / 60)`.
-- اللوحات بتحسب وقت النمط بتاعها بس من كل جزء، والمشروبات بتتحسب على النمط اللي الجلسة بدأت بيه.
-- رسايل الـ validation موجودة كـ `data-val-*` على الحقول، والأماكن بتاعتها `asp-validation-for`.
-- رسايل بعد العمليات (TempData) متكتوبة كـ comments جوه كل صفحة بالنص المطلوب.
+## Author
 
-## خطوات التحويل لـ MVC
-
-1. **الملفات الثابتة لـ `wwwroot`**: `css/` و `js/` و `images/` تتنقل زي ما هي لـ `wwwroot/css` و `wwwroot/js` و `wwwroot/images`،
-   والمسارات تبقى `~/css/style.css` وهكذا.
-2. **`Views/Shared/_Layout.cshtml`**: الـ `<head>` كله يتنقل هنا: الـ meta، و `<title>@ViewData["Title"] · LEVEL UP</title>`،
-   و favicon، و Bootstrap و `style.css`، و `theme.js` (لازم يفضل في الـ head من غير defer).
-   السايدبار يتنقل كمان (من أول `<nav class="sidebar">` لحد نهايته، ومعلّم بـ comment في كل صفحة)،
-   والسكريبتات اللي في آخر الـ body (jquery و validate و bootstrap) و `@RenderSection("Scripts", required: false)`.
-   - اللينك المتعلّم في السايدبار (`on` و `aria-current="page"`، و `on multi` للوحة الملتي) بيتحدد على حسب الـ Controller والـ Action الحاليين.
-   - عدد "N شغال" جنب "الأجهزة" بييجي من السيرفر، ومبيظهرش لو صفر.
-   - اسم المستخدم وأول حرف منه في `.who` بييجوا من `User.Identity.Name`.
-   - صفحة الدخول مفيهاش سايدبار، فتستخدم layout تاني أو `Layout = null`.
-3. **المحتوى المتغير**: اللي جوه `<main class="main">` بس هو اللي يروح لكل View.
-4. **`asp-*`**: شيل `href` و `action` الثابتين وسيب `asp-controller` و `asp-action` و `asp-route-*`، والـ Tag Helpers هتولّد المسارات.
-   ضيف `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers` في `_ViewImports.cshtml`.
-   حقول الفورمز ممكن تفضل HTML عادي بنفس الـ `name`، أو تتحول لـ `asp-for`.
-5. **`Views/Device/_DeviceCard.cshtml`**: كل `<article class="device-card">` في صفحة الأجهزة بيبقى Partial واحد بياخد الغرفة وحالتها.
-   فيه 3 حالات بتتحدد بالـ class:
-   - `idle` (فاضي): "هيلعب إيه؟" والعداد 00:00:00 و"المشروبات (قبل البدء)" وزرار "بدء سنجل/ملتي".
-     الكلام مرسوم على حسب النمط الافتراضي للغرفة.
-   - `running` (شغال): علامة النمط و"شغال"، والعداد وسعر اللعب، وسطر الأجزاء لو متحول، والمشروبات، و"تحويل لـ…" و"إيقاف".
-   - `bill` (في انتظار الحساب): بوكس "حساب الجلسة · من … لـ …"، و"رجوع للعب" و"تم التحصيل · إنهاء الجلسة".
-
-   قايمة المشروبات في الكارت فيها المتوفر بس. الغرف المعطلة مبتظهرش في الصفحة.
-   الكروت الخمسة في الصفحة الثابتة (فاضي، شغال سنجل، شغال ملتي، شغال ومتحول، مستني الحساب) هي المرجع لكل حالة.
-6. **الفلترة**: التابات في صفحة الأجهزة لينكات بـ `asp-route-filter`، والسيرفر بيفلتر الكروت ويحط `on` على التاب المختار
-   (`t-running` و `t-multi` للألوان). العدد جنب كل تاب بيتحسب على كل الغرف المفعّلة.
-   "شغال" بيشمل المستني الحساب، و"سنجل" و"ملتي" على حسب النمط الحالي للجلسة.
-7. **صف التعديل بـ `editId`**: في المشروبات والغرف، "تعديل السعر" و"تعديل الاسم" لينكات لنفس الصفحة بـ `asp-route-editId`.
-   لما `editId` ييجي، السيرفر بيرسم الصف ده بـ input وزرار "حفظ" وزرار "إلغاء" (لينك من غير `editId`)، والباقي نص عادي.
-   في الصفحة الثابتة فيه صف واحد في حالة التعديل كمثال (شاي في المشروبات، غرفة 2 في الغرف)، ومن غير JavaScript.
-   الـ input مربوط بفورم الحفظ بـ `form="edit-price-{id}"` أو `form="edit-name-{id}"`.
-8. **الحالات الفاضية**: النصوص بتاعتها ("مفيش جلسات منتهية بالفلتر ده"، "مفيش أجهزة في القسم ده دلوقتي"، …)
-   متكتوبة كـ comments مكان الجدول أو الكروت.
-
-## الـ JavaScript
-
-مفيش JavaScript غير الملفين دول. Bootstrap و jQuery Validation بيتحملوا للـ validation بس.
-
-### `js/theme.js` (كل الصفحات)
-
-- بيتحمل في `<head>` بعد الـ CSS ومن غير defer، وبيطبق الثيم المحفوظ (`localStorage` بمفتاح `levelup-theme`) على
-  `<html data-theme="dark|light">` قبل ما الصفحة تترسم، عشان متحصلش ومضة بين الثيمين.
-- بيربط زرار `#themeToggle`. الزرار فيه الحالتين (`.when-dark` و `.when-light`) والـ CSS بيخفي اللي مش مطلوب.
-- لو الثيم اتغير من تاب تانية، بيتطبق هنا كمان.
-
-### `js/timer.js` (صفحة الأجهزة بس)
-
-بيعمل حاجتين بس:
-
-**1) العداد**: على كل `.device-card` فيه `data-elapsed` ومش `data-stopped="true"`.
-
-| الـ attribute | على | المعنى |
-|---|---|---|
-| `data-elapsed` | `article` | ثواني الجلسة كلها لحظة رسم الصفحة |
-| `data-segment-elapsed` | `article` | ثواني الجزء الحالي (من آخر تحويل) لحظة رسم الصفحة |
-| `data-base-cost` | `article` | سعر الأجزاء اللي خلصت قبل آخر تحويل (ج.م) |
-| `data-rate` | `article` | سعر ساعة الجزء الحالي |
-| `data-stopped="true"` | `article` | مستني الحساب: العداد والسعر ثابتين |
-| `.timer` | جوه الكارت | بيتكتب فيه `data-elapsed` + الوقت من فتح الصفحة (HH:MM:SS) |
-| `data-cost` | `<b>` في سطر السعر | `data-base-cost` + سعر (`data-segment-elapsed` + الوقت من فتح الصفحة) بالدقيقة |
-| `data-segment-live` | span في سطر الأجزاء | مدة الجزء الحالي (H:MM) في الجلسة المتحولة |
-
-**2) تحديث الكارت الفاضي**: event delegation على `document` لـ `change` على `.modepick select`.
-
-| الـ attribute | على | المعنى |
-|---|---|---|
-| `data-label` | كل `option` | "سنجل" أو "ملتي" |
-| `data-rate` | كل `option` | "40" أو "60" |
-| `data-start-label` | زرار البدء | كلامه بيبقى "بدء " + `data-label` |
-| `data-mode-rate` | span في سطر السعر | كلامه بيبقى `data-label` + " " + `data-rate` + " ج.م/ساعة" |
-
-السيرفر بيرسم الكلام في الأول على حسب النمط الافتراضي للغرفة، والـ JavaScript بيغيّره بس لما الاختيار يتغير.
+**Nasr Mohamed** · [GitHub](https://github.com/naiw991uen-collab)
